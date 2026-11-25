@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/main}"
+      lang="vi">
+<head>
+    <title>Trang chủ</title>
+</head>
+<body>
+
+<div layout:fragment="content">
+
+    <!-- HERO SECTION -->
+    <section class="hero-section">
+        <div class="container">
+            <div class="hero-content text-center">
+                <span class="badge-pill mb-3">
+                    <i data-lucide="sparkles"></i> Đặt vé dễ dàng — Đi muôn nơi
+                </span>
+                <h1 class="hero-title">
+                    Hành trình của bạn,<br>
+                    <span class="text-gradient">bắt đầu từ đây</span>
+                </h1>
+                <p class="hero-subtitle" th:text="${message}">
+                    Chào mừng đến với Vietnam Bus Booking!
+                </p>
+
+                <!-- Search form (sẽ wire ở Giai đoạn 3) -->
+                <form class="search-card mt-4" th:action="@{/trip/index}" method="get">
+                    <div class="row g-3">
+                        <div class="col-md-3">
+                            <label class="form-label">Điểm đi</label>
+                            <select name="dep" class="form-select">
+                                <option value="">Chọn điểm đi</option>
+                                <option value="TP.HCM">TP.HCM</option>
+                                <option value="Hà Nội">Hà Nội</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <label class="form-label">Điểm đến</label>
+                            <select name="arr" class="form-select">
+                                <option value="">Chọn điểm đến</option>
+                                <option value="Lâm Đồng">Đà Lạt</option>
+                                <option value="Khánh Hòa">Nha Trang</option>
+                                <option value="Cần Thơ">Cần Thơ</option>
+                                <option value="Bà Rịa - Vũng Tàu">Vũng Tàu</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <label class="form-label">Ngày đi</label>
+                            <input type="date" name="date" class="form-control">
+                        </div>
+                        <div class="col-md-2">
+                            <label class="form-label">Số khách</label>
+                            <input type="number" name="passengers" class="form-control" value="1" min="1" max="10">
+                        </div>
+                        <div class="col-md-1 d-flex align-items-end">
+                            <button type="submit" class="btn btn-primary w-100" aria-label="Tìm chuyến">
+                                <i data-lucide="search"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- FEATURE HIGHLIGHTS -->
+    <section class="features-section container py-5">
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card-soft h-100">
+                    <div class="icon-circle"><i data-lucide="shield-check"></i></div>
+                    <h5>An toàn & tin cậy</h5>
+                    <p class="text-muted mb-0">Đặt vé qua nền tảng bảo mật, thông tin minh bạch.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card-soft h-100">
+                    <div class="icon-circle"><i data-lucide="zap"></i></div>
+                    <h5>Đặt vé tức thì</h5>
+                    <p class="text-muted mb-0">Chỉ vài bước đơn giản, nhận vé điện tử ngay lập tức.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card-soft h-100">
+                    <div class="icon-circle"><i data-lucide="headphones"></i></div>
+                    <h5>Hỗ trợ 24/7</h5>
+                    <p class="text-muted mb-0">Đội ngũ CSKH luôn sẵn sàng đồng hành cùng bạn.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PLACEHOLDER: Popular routes / Featured trips (Giai đoạn 3) -->
+    <section class="container py-5">
+        <div class="section-header">
+            <h2 class="section-title">Tuyến xe phổ biến</h2>
+            <a th:href="@{/route/index}" class="btn btn-ghost">Xem tất cả</a>
+        </div>
+        <div class="text-center text-muted py-4">
+            <i data-lucide="loader" class="spin"></i>
+            Dữ liệu sẽ được tải từ SQL Server ở Giai đoạn 3.
+        </div>
+    </section>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<!-- ============ NAVBAR FRAGMENT ============ -->
+<header th:fragment="navbar" class="navbar-glass" id="mainNavbar">
+    <nav class="container nav-container">
+
+        <!-- Brand -->
+        <a th:href="@{/home/index}" class="brand">
+            <span class="brand-icon"><i data-lucide="bus"></i></span>
+            <span class="brand-text">Vietnam Bus</span>
+        </a>
+
+        <!-- Desktop navigation -->
+        <div class="nav-links d-none d-lg-flex">
+            <a th:href="@{/home/index}" class="nav-link">Trang chủ</a>
+            <a th:href="@{/route/index}" class="nav-link">Tuyến xe</a>
+            <a th:href="@{/trip/index}" class="nav-link">Tìm chuyến</a>
+            <a th:href="@{/home/about}" class="nav-link">Giới thiệu</a>
+            <a th:href="@{/home/help}" class="nav-link">Trợ giúp</a>
+        </div>
+
+        <!-- Right actions -->
+        <div class="nav-actions">
+
+            <!-- Đã đăng nhập -->
+            <div th:if="${session.user != null}" class="dropdown">
+                <button class="btn btn-ghost dropdown-toggle" data-bs-toggle="dropdown" type="button">
+                    <i data-lucide="user-circle"></i>
+                    <span class="d-none d-md-inline" th:text="${session.user.fullName}">Người dùng</span>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end shadow-soft">
+                    <li>
+                        <a class="dropdown-item" th:href="@{/account/profile}">
+                            <i data-lucide="user"></i> Hồ sơ cá nhân
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" th:href="@{/booking/list}">
+                            <i data-lucide="ticket"></i> Đơn vé của tôi
+                        </a>
+                    </li>
+                    <li th:if="${session.user.role == 'ADMIN'}">
+                        <a class="dropdown-item" th:href="@{/admin/dashboard}">
+                            <i data-lucide="shield"></i> Quản trị hệ thống
+                        </a>
+                    </li>
+                    <li th:if="${session.user.role == 'CONSULTANT'}">
+                        <a class="dropdown-item" th:href="@{/operator/schedule}">
+                            <i data-lucide="calendar"></i> Chuyến được phân công
+                        </a>
+                    </li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li>
+                        <a class="dropdown-item text-danger" th:href="@{/auth/logout}">
+                            <i data-lucide="log-out"></i> Đăng xuất
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Chưa đăng nhập -->
+            <div th:unless="${session.user != null}" class="d-none d-md-flex gap-2">
+                <a th:href="@{/auth/login}" class="btn btn-ghost">Đăng nhập</a>
+                <a th:href="@{/auth/register}" class="btn btn-primary">Đăng ký</a>
+            </div>
+
+            <!-- Mobile toggle -->
+            <button class="btn btn-icon d-lg-none" id="mobileToggle" aria-label="Mở menu" type="button">
+                <i data-lucide="menu"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile drawer -->
+    <div class="mobile-menu d-lg-none" id="mobileMenu">
+        <a th:href="@{/home/index}" class="mobile-link">Trang chủ</a>
+        <a th:href="@{/route/index}" class="mobile-link">Tuyến xe</a>
+        <a th:href="@{/trip/index}" class="mobile-link">Tìm chuyến</a>
+        <a th:href="@{/home/about}" class="mobile-link">Giới thiệu</a>
+        <a th:href="@{/home/help}" class="mobile-link">Trợ giúp</a>
+        <hr>
+        <div th:unless="${session.user != null}" class="d-grid gap-2 mt-3">
+            <a th:href="@{/auth/login}" class="btn btn-ghost">Đăng nhập</a>
+            <a th:href="@{/auth/register}" class="btn btn-primary">Đăng ký</a>
+        </div>
+    </div>
+</header>
+
+</body>
+</html>
